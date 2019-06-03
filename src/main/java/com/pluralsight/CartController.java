@@ -48,6 +48,9 @@ public class CartController extends HttpServlet {
 				case "/delete":
 					deleteFromCart(request, response);
 					break;
+				case "/update":
+					updateCart(request, response);
+					break;
         default:
            break;
 			}
@@ -95,5 +98,13 @@ public class CartController extends HttpServlet {
 		int index = Integer.parseInt(request.getParameter("index"));
 		ShoppingCart shoppingCart = (ShoppingCart)session.getAttribute("cart");
 		shoppingCart.deleteCartItem(index);
+	}
+
+	private void updateCart(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException{
+		HttpSession session = request.getSession();
+		int index = Integer.parseInt(request.getParameter("index"));
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		ShoppingCart shoppingCart = (ShoppingCart)session.getAttribute("cart");
+		shoppingCart.updateCartItem(index, quantity);
 	}
 }
